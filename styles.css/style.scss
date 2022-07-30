@@ -43,21 +43,25 @@ html {
 			bottom: 0;
 			margin: auto;
 			padding: 1rem;
-			display: grid;
-			grid-template-columns: max-content 1fr;
-			align-items: center;
-			gap: 2px;
 			height: 40vh;
 			width: 30vh;
 			background-color: gray;
-			label {
-				justify-self: flex-end;
-			}
-			#read-checkbox {
-				justify-self: flex-start;
-			}
-			#close-btn {
-				justify-self: flex-end;
+			#add-book-form {
+				display: grid;
+				grid-template-columns: max-content 1fr;
+				align-items: center;
+				gap: 2px;
+				height: 100%;
+				width: 100%;
+				label {
+					justify-self: flex-end;
+				}
+				#read {
+					justify-self: flex-start;
+				}
+				#close-btn {
+					justify-self: flex-end;
+				}
 			}
 		}
 	}

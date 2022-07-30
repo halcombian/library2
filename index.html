@@ -15,22 +15,26 @@
 			</div>
 			<div id="book-con">
 				<div id="add-book-window">
-					<label for="title">Title:</label>
-					<input type="text" name="title" />
+					<form action="" id="add-book-form">
+						<label for="title">Title:</label>
+						<input type="text" name="title" id="title" />
 
-					<label for="author">Author:</label>
-					<input type="text" name="author" />
+						<label for="author">Author:</label>
+						<input type="text" name="author" id="author" />
 
-					<label for="pages">Pages:</label>
-					<input type="number" name="pages" />
+						<label for="pages">Pages:</label>
+						<input type="number" name="pages" id="pages" />
 
-					<label for="read">Read:</label>
-					<input type="checkbox" name="read" id="read-checkbox" />
+						<label for="read">Read:</label>
+						<input type="checkbox" name="read" id="read" value="read" />
 
-					<button id="add-btn" class="btn">Add</button>
-					<button id="close-btn" class="btn">Close</button>
+						<button id="add-btn" class="btn">Add</button>
+						<button id="close-btn" class="btn">Close</button>
+					</form>
 				</div>
 			</div>
 		</div>
+
+		<script src="main.js"></script>
 	</body>
 </html>
