@@ -13,6 +13,7 @@ addBtn.addEventListener("click", (event) => {
 	event.preventDefault(); //disables default submit functionality
 	readUnread(); //checks if read checkbox is checked
 	addBookToLibrary(); //adds new Book object to library array
+	checkRead();
 
 	addBookWindow.style.visibility = "hidden";
 	addBookForm.reset();
@@ -21,7 +22,8 @@ addBtn.addEventListener("click", (event) => {
 //Closes add book window and clears form
 const closeBtn = document.getElementById("close-btn");
 const addBookForm = document.getElementById("add-book-form");
-closeBtn.addEventListener("click", () => {
+closeBtn.addEventListener("click", (event) => {
+	event.preventDefault();
 	addBookWindow.style.visibility = "hidden";
 	addBookForm.reset();
 });
@@ -54,7 +56,47 @@ function readUnread() {
 function addBookToLibrary() {
 	let newBook = new Book(title, author, pages, read);
 	myLibrary.push(newBook);
+
+	const bookCon = document.getElementById("book-con");
+	const bookCard = document.createElement("div");
+	const bookInfo = document.createElement("span");
+	const bookCheckbox = document.createElement("input");
+
+	bookCard.className = "book-card";
+	bookInfo.className = "book-info";
+	bookCheckbox.className = "book-checkbox";
+
+	bookInfo.innerHTML =
+		newBook.title +
+		"<br>" +
+		newBook.author +
+		"<br>" +
+		newBook.pages +
+		"<br>" +
+		newBook.read;
+
+	bookCheckbox.type = "checkbox";
+
+	bookCon.appendChild(bookCard);
+	bookCard.appendChild(bookInfo);
+	bookCard.appendChild(bookCheckbox);
+}
+
+function checkRead() {
 	for (let i = 0; i < myLibrary.length; i++) {
-		console.log(myLibrary[i]);
+		const bookChex = document.getElementsByClassName("book-checkbox");
+		bookChex[i].addEventListener("click", () => {
+			if (bookChex[i].checked) {
+				myLibrary[i].read = "read";
+			} else {
+				myLibrary[i].read = "unread";
+			}
+			console.log(myLibrary[i].read);
+		});
+		if (myLibrary[i].read === "read") {
+			bookChex[i].checked = true;
+		} else {
+			bookChex[i].checked = false;
+		}
 	}
 }
