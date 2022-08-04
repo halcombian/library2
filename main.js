@@ -14,6 +14,7 @@ addBtn.addEventListener("click", (event) => {
 	readUnread(); //checks if read checkbox is checked
 	addBookToLibrary(); //adds new Book object to library array
 	checkRead();
+	//removeBtnEvent();
 
 	addBookWindow.style.visibility = "hidden";
 	addBookForm.reset();
@@ -52,6 +53,7 @@ function readUnread() {
 	}
 }
 
+let index = 0;
 //adds new Book object to library array
 function addBookToLibrary() {
 	let newBook = new Book(title, author, pages, read);
@@ -61,10 +63,13 @@ function addBookToLibrary() {
 	const bookCard = document.createElement("div");
 	const bookInfo = document.createElement("span");
 	const bookCheckbox = document.createElement("input");
+	const removeBtn = document.createElement("button");
 
+	bookCard.setAttribute("index", index);
 	bookCard.className = "book-card";
 	bookInfo.className = "book-info";
 	bookCheckbox.className = "book-checkbox";
+	removeBtn.className = "remove-btn";
 
 	bookInfo.innerHTML =
 		newBook.title +
@@ -73,30 +78,47 @@ function addBookToLibrary() {
 		"<br>" +
 		newBook.pages +
 		"<br>" +
-		newBook.read;
+		"Read";
+
+	removeBtn.textContent = "Remove";
 
 	bookCheckbox.type = "checkbox";
+
+	removeBtn.setAttribute("data-index", index);
 
 	bookCon.appendChild(bookCard);
 	bookCard.appendChild(bookInfo);
 	bookCard.appendChild(bookCheckbox);
+	bookCard.appendChild(removeBtn);
+
+	index++;
+
+	removeBtn.addEventListener("click", () => {
+		bookCard.remove();
+
+		myLibrary.splice(removeBtn.dataset.index, 1);
+
+		index--;
+	});
 }
 
 function checkRead() {
 	for (let i = 0; i < myLibrary.length; i++) {
-		const bookChex = document.getElementsByClassName("book-checkbox");
-		bookChex[i].addEventListener("click", () => {
-			if (bookChex[i].checked) {
-				myLibrary[i].read = "read";
+		(function (i) {
+			const bookChex = document.getElementsByClassName("book-checkbox");
+			bookChex[i].addEventListener("click", () => {
+				if (bookChex[i].checked) {
+					myLibrary[i].read = "read";
+				} else {
+					myLibrary[i].read = "unread";
+				}
+				console.log(myLibrary[i].read);
+			});
+			if (myLibrary[i].read === "read") {
+				bookChex[i].checked = true;
 			} else {
-				myLibrary[i].read = "unread";
+				bookChex[i].checked = false;
 			}
-			console.log(myLibrary[i].read);
 		});
-		if (myLibrary[i].read === "read") {
-			bookChex[i].checked = true;
-		} else {
-			bookChex[i].checked = false;
-		}
 	}
 }
